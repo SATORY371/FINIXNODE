@@ -1,324 +1,437 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SALKANTAY</title>
-    <link rel="stylesheet" href="css/diseño.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <script src="js/funcion.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>VUELVE TRANQUILO · Protección inteligente contra extorsión</title>
+  <!-- Font Awesome 6 para íconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+      background: #0b0f1a;
+      color: #e0e4f0;
+      line-height: 1.5;
+      scroll-behavior: smooth;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Hero section con gradiente oscuro y alerta */
+    .hero {
+      background: radial-gradient(circle at 20% 30%, #1e2a4a, #0a0e1a);
+      padding: 60px 0 50px;
+      border-bottom: 2px solid #c44536;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: -30%;
+      left: -20%;
+      width: 140%;
+      height: 160%;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><path d="M30 40 L70 40 L50 70 Z" fill="%23c44536" opacity="0.08"/><circle cx="140" cy="60" r="18" fill="%23c44536" opacity="0.06"/></svg>') repeat;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .badge {
+      background: #c44536;
+      color: white;
+      display: inline-block;
+      padding: 6px 20px;
+      border-radius: 30px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-size: 3.2rem;
+      font-weight: 800;
+      line-height: 1.2;
+      color: white;
+      margin-bottom: 15px;
+    }
+
+    .highlight {
+      color: #f4a261;
+      border-bottom: 4px solid #c44536;
+    }
+
+    .hero-sub {
+      font-size: 1.3rem;
+      color: #cbd5e0;
+      max-width: 700px;
+      margin: 0 auto 30px;
+    }
+
+    .stats-hero {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      margin: 30px 0 20px;
+      background: rgba(0,0,0,0.45);
+      padding: 25px;
+      border-radius: 24px;
+      backdrop-filter: blur(8px);
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #f4a261;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: #a0b0cc;
+    }
+
+    .btn {
+      background: #c44536;
+      color: white;
+      font-weight: bold;
+      padding: 16px 35px;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: 0.25s;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      box-shadow: 0 10px 20px rgba(196, 69, 54, 0.3);
+      margin: 10px;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid #f4a261;
+      color: #f4a261;
+      box-shadow: none;
+    }
+
+    .btn:hover {
+      background: #b03a2e;
+      transform: translateY(-2px);
+    }
+
+    .btn-outline:hover {
+      background: rgba(244, 162, 97, 0.1);
+    }
+
+    /* Secciones */
+    section {
+      padding: 70px 0;
+    }
+
+    h2 {
+      font-size: 2.4rem;
+      font-weight: 700;
+      margin-bottom: 25px;
+      color: white;
+      position: relative;
+      display: inline-block;
+    }
+
+    h2 i {
+      color: #f4a261;
+      margin-right: 12px;
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+      margin-top: 30px;
+    }
+
+    .card {
+      background: #151c2c;
+      border-radius: 24px;
+      padding: 28px 22px;
+      border: 1px solid #2d3a50;
+      transition: 0.2s;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+    }
+
+    .card i {
+      font-size: 2.2rem;
+      color: #c44536;
+      margin-bottom: 15px;
+    }
+
+    .card h3 {
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+    }
+
+    /* Simulador de pánico interactivo */
+    .panic-simulator {
+      background: #0e121f;
+      border: 2px solid #c44536;
+      border-radius: 40px;
+      padding: 35px 25px;
+      margin: 40px 0;
+      text-align: center;
+    }
+
+    .panic-btn {
+      background: #9e2a1f;
+      border: none;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      font-size: 2.8rem;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 0 30px #c44536;
+      transition: 0.1s ease;
+      margin: 20px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .panic-btn:active {
+      transform: scale(0.92);
+      background: #ff3b2f;
+      box-shadow: 0 0 60px #ff3b2f;
+    }
+
+    .log-area {
+      background: #000;
+      border-radius: 16px;
+      padding: 18px;
+      margin-top: 15px;
+      font-family: monospace;
+      color: #4eff6f;
+      text-align: left;
+      min-height: 80px;
+    }
+
+    .instructions-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      margin: 35px 0;
+    }
+
+    .step {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      background: #151c2c;
+      border-radius: 20px;
+      padding: 18px 25px;
+    }
+
+    .step-num {
+      background: #f4a261;
+      color: #0a0e1a;
+      font-weight: 800;
+      font-size: 1.8rem;
+      width: 55px;
+      height: 55px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 16px;
+      flex-shrink: 0;
+    }
+
+    .footer {
+      background: #060912;
+      padding: 30px 0;
+      text-align: center;
+      color: #7a8599;
+      border-top: 1px solid #2d3a50;
+    }
+
+    @media (max-width: 650px) {
+      h1 {
+        font-size: 2.2rem;
+      }
+      .stats-hero {
+        flex-direction: column;
+        gap: 15px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <script src="js/funcion.js"></script>
-    <header class="barra">
-        <nav>
-            <a href="#inicio">Inicio</a>
-            <a href="#quienes">Quienes Somos</a>
-            <a href="#experiencia">Experiencias</a>
-            <a href="#servicio">Servicios</a>
-            <a href="#contacto">Contacto</a>
-        </nav>
-        <section  class="textos-heder"> 
-            <h1>Explora Salkantay y vive aventuras inolvidables</h1>
-             <h2>Viaja con OkiDoki Travel Perú</h2>
-             </section>
-        <div class="wave" style="height: 150px; overflow: hidden;">
-  <svg viewBox="0 0 500 150" preserveAspectRatio="none" 
-  style="height: 100%; width: 100%;">
-    <path d="M0.00,49.98 C150.00,150.00 349.48,-50.00 500.00,49.98 L500.00,150.00 L0.00,150.00 Z" fill="#FFFFFF"></path>
-  </svg>
-</div>
-    </header>
-    <main>
-        <section id="quienes" class="contenedor sobre nosotros">
-            <h2 class="titulo">Quienes somos</h2>
-            <div class="Contenedor-sobre-nosotros">
-                <img src="img/salkantay.jpg" alt="Experiencias en el nevado"  width="500" class="imagen-about-us">
-                <div class="contenido-textos">
-                    <h3><span>1</span><a href="https://www.okidokitravelperu.com/">Okidoki Travel Perú</a>: Tu Viaje al Corazón de los Andes</h3>
-                    <p>En <a href="https://www.okidokitravelperu.com/">Okidoki Travel Perú</a>, no somos una simple agencia; somos tus socios en la aventura de la vida. Nos dedicamos a crear experiencias transformadoras que nutren tu mente, cuerpo y alma. Desde nuestro origen en los Andes peruanos, nuestra pasión es revelarte la verdadera esencia de esta tierra mágica.
-                    Nuestra meta es clara: ofrecerte viajes únicos y profundos. Creemos que cada expedición, especialmente la majestuosa Ruta de Salkantay, es una oportunidad para el autodescubrimiento y la renovación personal. Con cada paso, te acercas no solo a paisajes asombrosos, sino también a una conexión más profunda contigo mismo.</p>
-                    <h3><span>2</span>Conecta con la Esencia Andina</h3>
-                    <p>En <a href="https://www.okidokitravelperu.com/">Okidoki Travel Perú</a>, te invitamos a un viaje trascendental que resonará en lo más profundo de tu ser. Somos tus cómplices para aventuras que no solo embellecen tus recuerdos, sino que también te conectan con el espíritu ancestral de los Andes.</p>
-                </div>
-            </div>
-        </section>
+  <!-- HERO PRINCIPAL -->
+  <header class="hero">
+    <div class="hero-content container">
+      <span class="badge"><i class="fas fa-shield-haltered"></i> SOLUCIÓN DIGITAL PERUANA</span>
+      <h1>VUELVE <span class="highlight">TRANQUILO</span></h1>
+      <p class="hero-sub">El ecosistema inteligente que enfrenta la extorsión en tiempo real. Protege tu bodega, taxi o combi sin miedo.</p>
+      
+      <div class="stats-hero">
+        <div class="stat-item"><span class="stat-number">42%</span><div class="stat-label">pequeños negocios reciben extorsión (INEI)</div></div>
+        <div class="stat-item"><span class="stat-number">300%</span><div class="stat-label">aumento de sicariato 2020-2024</div></div>
+        <div class="stat-item"><span class="stat-number">+800</span><div class="stat-label">bodegas cerradas en SJL (2023)</div></div>
+      </div>
+      
+      <a href="#solucion" class="btn"><i class="fas fa-bolt"></i> CÓMO FUNCIONA</a>
+      <a href="#instrucciones" class="btn btn-outline"><i class="fas fa-mobile-alt"></i> GUÍA DE USO</a>
+    </div>
+  </header>
 
-        
-       <section id="experiencia" class="portafolios">
-    <div class="contenedor">
-        <h2 class="titulo">Experiencias</h2>
-        <div class="galeria-port">
+  <!-- SECCIÓN PROBLEMA (CAUSAS/EFECTOS) -->
+  <section class="container" id="problema">
+    <h2><i class="fas fa-exclamation-triangle"></i> La crisis silenciosa</h2>
+    <div class="problem-grid">
+      <div class="card"><i class="fas fa-skull"></i><h3>Call centers del crimen</h3><p>Internos operan desde penales con celulares ilegales. Solo 8% de denuncias llega a sentencia.</p></div>
+      <div class="card"><i class="fas fa-store-slash"></i><h3>Cierre masivo</h3><p>Más de 800 bodegas cerraron en San Juan de Lurigancho por extorsión. Cada negocio alimenta a 3 familias.</p></div>
+      <div class="card"><i class="fas fa-user-shield"></i><h3>Testigos sin protección</h3><p>70% no denuncia por miedo. Prefieren pagar "vacuna" antes que confiar en el Estado.</p></div>
+      <div class="card"><i class="fas fa-map-pin"></i><h3>Fragmentación criminal</h3><p>Más de 60 bandas pequeñas pelean por cuadras en distritos como Los Olivos o Trujillo.</p></div>
+    </div>
+  </section>
 
-            <div class="port-item">
-                <img src="img/img1.1.jpg" alt="">
-                <div class="hover-galeria">
-                    <img src="img/icono1.png" alt="">
-                    <p>Esencia</p>
-                </div>
-            </div>
-
-            <div class="port-item">
-                <img src="img/img1.2.jpg" alt="">
-                <div class="hover-galeria">
-                    <img src="img/icono1.png" alt="">
-                    <p>Descubrirse</p>
-                </div>
-            </div>
-
-            <div class="port-item">
-                <img src="img/img1.3.jpg" alt="">
-                <div class="hover-galeria">
-                    <img src="img/icono1.png" alt="">
-                    <p>Propósito</p>
-                </div>
-            </div>
-
-            <div class="port-item">
-                <img src="img/img1.4.jpeg" alt="">
-                <div class="hover-galeria">
-                    <img src="img/icono1.png" alt="">
-                    <p>Devenir</p>
-                </div>
-            </div>
-
-            <div class="port-item">
-                <img src="img/img1.5.jpeg" alt="">
-                <div class="hover-galeria">
-                    <img src="img/icono1.png" alt="">
-                    <p>Presente</p>
-                </div>
-            </div>
-
-            <div class="port-item">
-                <img src="img/img1.6.jpg" alt="">
-                <div class="hover-galeria">
-                    <img src="img/icono1.png" alt="">
-                    <p>Despertar</p>
-                </div>
-            </div>
-
-            <div class="port-item">
-                <img src="img/img1.7.jpg" alt="">
-                <div class="hover-galeria">
-                    <img src="img/icono1.png" alt="">
-                    <p>Trascender</p>
-                </div>
-            </div>
-
-            <div class="port-item">
-                <img src="img/img 1.8.png" alt="">
-                <div class="hover-galeria">
-                    <img src="img/icono1.png" alt="">
-                    <p>Momentum</p>
-                </div>
-            </div>
-
-        </div>
+  <!-- SOLUCIÓN DIGITAL + MML RESUMIDA -->
+  <section class="container" id="solucion">
+    <h2><i class="fas fa-microchip"></i> Ecosistema VUELVE TRANQUILO</h2>
+    <p style="font-size:1.2rem; margin-bottom:20px;">App gratuita + botón de pánico silencioso + centro de inteligencia forense <strong>Halcón</strong>.</p>
+    
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap:20px;">
+      <div class="card"><i class="fas fa-mobile-screen-button"></i><h3>App camuflable</h3><p>Botón de pánico que graba audio, GPS y foto sin que el extorsionador lo sepa. Modo "calculadora".</p></div>
+      <div class="card"><i class="fas fa-brain"></i><h3>IA de voz forense</h3><p>Reconoce al delincuente aunque cambie de número. Identifica patrones de habla desde la cárcel.</p></div>
+      <div class="card"><i class="fas fa-map-location-dot"></i><h3>Mapa de calor predictivo</h3><p>Anticipa zonas y horarios de extorsión para patrullaje preventivo.</p></div>
+      <div class="card"><i class="fas fa-file-shield"></i><h3>Expediente automático</h3><p>El fiscal recibe el caso armado con audios, ubicación y perfil del extorsionador.</p></div>
     </div>
 
-    <!-- Carrusel Modal -->
-<div id="modal-carrusel" class="modal">
-  <span class="cerrar" id="cerrarModal">&times;</span>
-  <img class="modal-contenido" id="imagenAmpliada">
-  <div class="navegacion">
-    <span class="flecha" id="anterior">&#10094;</span>
-    <span class="flecha" id="siguiente">&#10095;</span>
-  </div>
-</div>
-</section>
-
-
-
-        <section id="clientes" class="clientes contenedor">
-            <h2 class="titulo">El Apu Guardián y la Odisea Espiritual</h2>
-            <div class="cards">
-                <div class="card">
-                    <img src="img/sity1.jpg" alt="">
-                    <div class="contenido-texto-card">
-                        <h4>El Salkantay</h4>
-                        <p>Adéntrate en la enigmática Ruta Salkantay, dominada por el imponente Apu Salkantay, deidad andina que custodia paisajes vírgenes. Esta expedición es más que un trekking; es una inmersión espiritual, un diálogo con la naturaleza que purifica el alma y eleva el espíritu. Con <a href="https://www.okidokitravelperu.com/">Okidoki Travel Perú</a>, cada paso en esta senda milenaria te acercará a la esencia misma de los Andes y a una profunda conexión interior.</p>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <img src="img/sity2.jpg" alt="" width="700">
-                    <div class="contenido-texto-card">
-                        <h4>Montaña Salvaje</h4>
-                        <p>El Nevado Salkantay,  se erige como el corazón místico de una de las travesías más transformadoras de Perú. Venerado como Apu, su energía sagrada guía un viaje que despierta los sentidos y la conciencia. <a href="https://www.okidokitravelperu.com/">Okidoki Travel Perú</a> te invita a recorrer este camino ancestral, donde la magnificencia de los glaciares y la serenidad de los valles andinos forjarán una experiencia inolvidable que resuena con tu ser más profundo.!</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
-
-        <section class="about-serv-hover">
-  <div class="contenedor">
-    <h2 class="titulo">Descubre el Camino a Salkantay: Un viaje épico a través de la historia y la naturaleza</h2>
-    <div class="servicio-hover-cont">
-
-      <div class="servicio-hover">
-        <img src="img/MOLLEPATA.jpg" alt="Tours Personalizados">
-        <div class="info-hover">
-          <h3>Día 1: Mollepata - Soraypampa</h3>
-          <p>Distancia: 18 km
-Tiempo: 6-7 horas
-Altitud: 3.900 msnm</p>
-        </div>
+    <!-- SIMULADOR INTERACTIVO DEL BOTÓN DE PÁNICO -->
+    <div class="panic-simulator">
+      <h3 style="color:white;"><i class="fas fa-hand-pointer"></i> SIMULADOR DE BOTÓN DE PÁNICO</h3>
+      <p style="color:#bbc5d9;">Presiona el botón rojo (en tu celular sería invisible). Así funciona en una emergencia real.</p>
+      <button id="panicButton" class="panic-btn"><i class="fas fa-exclamation"></i></button>
+      <div id="panicLog" class="log-area">
+        [Sistema] Esperando activación... 🟢
       </div>
-
-      <div class="servicio-hover">
-        <img src="img/SORAYPAMPA.jpg" alt="Servicios Incluidos">
-        <div class="info-hover">
-          <h3>Día 2: Soraypampa - Chaullay</h3>
-          <p>Distancia: 22 km
-Tiempo: 7-8 horas
-Altitud: 4.600 msnm (punto más alto)</p>
-        </div>
-      </div>
-
-      <div class="servicio-hover">
-        <img src="img/CHAULLAY.jpg" alt="Niveles de Dificultad">
-        <div class="info-hover">
-          <h3>Día 3: Chaullay - Llactapata</h3>
-          <p>Distancia: 14 km
-Tiempo: 5-6 horas
-Altitud: 2.800 msnm</p>
-        </div>
-      </div>
-
-      <div class="servicio-hover">
-        <img src="img/MOLLEPATA.jpg" alt="Tours Personalizados">
-        <div class="info-hover">
-          <h3>Día 1: Mollepata - Soraypampa</h3>
-          <p>Distancia: 18 km
-Tiempo: 6-7 horas
-Altitud: 3.900 msnm</p>
-        </div>
-      </div>
-
-      <div class="servicio-hover">
-        <img src="img/SORAYPAMPA.jpg" alt="Servicios Incluidos">
-        <div class="info-hover">
-          <h3>Día 2: Soraypampa - Chaullay</h3>
-          <p>Distancia: 22 km
-Tiempo: 7-8 horas
-Altitud: 4.600 msnm (punto más alto)</p>
-        </div>
-      </div>
-
-      <div class="servicio-hover">
-        <img src="img/CHAULLAY.jpg" alt="Niveles de Dificultad">
-        <div class="info-hover">
-          <h3>Día 3: Chaullay - Llactapata</h3>
-          <p>Distancia: 14 km
-Tiempo: 5-6 horas
-Altitud: 2.800 msnm</p>
-        </div>
-      </div>
-
+      <p style="font-size:0.85rem; margin-top:10px; color:#a0b0cc;"><i class="fas fa-info-circle"></i> En situación real, el audio y ubicación se envían a la central en segundos.</p>
     </div>
-  </div>
-</section>
+  </section>
 
-
-
-<section class="recomendaciones contenedor">
-  <h2 class="titulo">Recomendaciones</h2>
-  <div class="recom-lista">
-
-    <div class="recom-item derecha">
-      <div class="recom-texto">
-        <h3>Hidrátate y aclimátate</h3>
-        <p>Antes de tu aventura en los Andes, toma agua y aclimátate a la altura de Cusco.</p>
+  <!-- INSTRUCCIONES DE USO DETALLADAS (INTERACTIVAS) -->
+  <section class="container" id="instrucciones">
+    <h2><i class="fas fa-list-ol"></i> Cómo usar VUELVE TRANQUILO</h2>
+    <div class="instructions-steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div><strong>Descarga e instalación oculta</strong><br>Instala la app desde enlace seguro. Puedes ocultarla con ícono de calculadora. Solo tú sabrás que es VUELVE TRANQUILO.</div>
       </div>
-      <img src="img/ejercicios1.png" alt="Icono 1" class="recom-icono">
-    </div>
-
-    <div class="recom-item derecha">
-      <div class="recom-texto">
-        <h3>Ropa adecuada</h3>
-        <p>El clima cambia rápidamente. Usa chaquetas, impermeables y calzado resistente.</p>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div><strong>Activa permisos necesarios</strong><br>Concede acceso a micrófono, ubicación y cámara (solo se usan al activar el botón de pánico).</div>
       </div>
-      <img src="img/casacafrio1.png" alt="Icono 2" class="recom-icono">
-    </div>
-
-    <div class="recom-item derecha">
-      <div class="recom-texto">
-        <h3>Respeto a la naturaleza</h3>
-        <p>No dejes residuos y respeta a los animales y comunidades locales.</p>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div><strong>Configura tu "Chapa segura" USB</strong><br>Conecta el dispositivo al puerto de carga; así las llamadas se enmascaran y el botón físico queda listo.</div>
       </div>
-      <img src="img/salud1.png" alt="Icono 3" class="recom-icono">
+      <div class="step">
+        <div class="step-num">4</div>
+        <div><strong>Ante una amenaza: presiona el botón</strong><br>Mantén presionado el botón de volumen (o el USB) durante 3 segundos. La app graba sin alertar.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div><strong>Central Halcón recibe la alerta</strong><br>En menos de 30 segundos, un operador verifica y despacha patrullero. El fiscal recibe el caso digitalmente.</div>
+      </div>
     </div>
-
-  </div>
-</section>
-
-
-
-
-
-        <section id="servicio" class="about-services">
-            <div class="contenedor">
-                <h2 class="titulo">Nuestros servicios</h2>
-                <div class="servicio-cont">
-                    <div class="servicio-ind">
-                        <img src="img/ilustracion1_1.svg" alt="">
-                        <h3>Tours Personalizados</h3>
-                        <p>Explora los sitios arqueológicos más emblemáticos de Cusco con tours diseñados para satisfacer tus necesidades y intereses</p>
-                    </div>
-
-                    <div class="servicio-ind">
-                        <img src="img/ilustracion2_1.svg" alt="">
-                        <h3>Servicios Incluidos</h3>
-                        <p>Transporte privado, guías especializados,  alojamiento y comida en hoteles y restaurantes seleccionados.</p>
-                    </div>
-
-                    <div class="servicio-ind">
-                        <img src="img/ilustracion3_1.svg" alt="">
-                        <h3>Niveles de Dificultad</h3>
-                        <p>Nuestros tours están clasificados según su nivel de dificultad. Nuestros guías te ayudarán a elegir el tour adecuado para ti.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-
-
-    <section class="mini-banner">
-  <div class="item-banner">
-    <img src="img/tripadvisord leg.png" alt="Imagen 1">
-    <div class="texto-item">
-      <h4>Conexión Andina</h4>
-      <p>Explora el alma de los Andes.</p>
+    
+    <div style="background:#1b2335; border-radius:20px; padding:20px; margin-top:20px;">
+      <h4 style="color:#f4a261;"><i class="fas fa-clock"></i> Tiempos reales del sistema</h4>
+      <p>✔ Alerta recibida en central: <strong>2-4 segundos</strong>.<br>✔ Verificación humana: <strong>30 segundos</strong>.<br>✔ Respuesta policial en zona piloto: <strong>menos de 5 minutos</strong>.<br>✔ Orden de captura si coincide voz forense: <strong>2 horas</strong>.</p>
     </div>
-  </div>
-  <div class="item-banner">
-    <img src="img/LE ROUTARD (1).jpg" alt="Imagen 2">
-    <div class="texto-item">
-      <h4>Despertar Espiritual</h4>
-      <p>Camina hacia tu esencia interior.</p>
+  </section>
+
+  <!-- INDICADORES MML Y SOSTENIBILIDAD -->
+  <section class="container">
+    <h2><i class="fas fa-chart-line"></i> Impacto esperado (Matriz de Marco Lógico)</h2>
+    <div style="display:flex; flex-wrap:wrap; gap:25px; justify-content:space-between;">
+      <div style="flex:1; min-width:200px;"><span style="font-size:2.5rem; font-weight:800; color:#f4a261;">40%</span><br>Reducción de extorsión en 5 distritos en 3 años.</div>
+      <div style="flex:1; min-width:200px;"><span style="font-size:2.5rem; font-weight:800; color:#f4a261;">60%</span><br>Denuncias efectivas (hoy solo 12%).</div>
+      <div style="flex:1; min-width:200px;"><span style="font-size:2.5rem; font-weight:800; color:#f4a261;">2000</span><br>Negocios y taxis seguros interconectados.</div>
     </div>
-  </div>
-</section>
+    <p style="margin-top:25px;"><i class="fas fa-check-circle" style="color:#2ecc71;"></i> <strong>Costo cero para el comerciante.</strong> Financiado por fondo de seguridad ciudadana e impuesto a apuestas telefónicas.</p>
+  </section>
 
+  <footer class="footer">
+    <div class="container">
+      <p><strong>VUELVE TRANQUILO</strong> · Solución digital contra la extorsión en Perú · Proyecto social MML</p>
+      <p style="font-size:0.8rem;">Basado en datos INEI 2024 · Protección al denunciante garantizada · Alianza con Ministerio del Interior</p>
+    </div>
+  </footer>
 
+  <script>
+    // SIMULADOR INTERACTIVO DEL BOTÓN DE PÁNICO (parte central de la landing)
+    const panicBtn = document.getElementById('panicButton');
+    const logDiv = document.getElementById('panicLog');
 
+    function getCurrentTimestamp() {
+      const now = new Date();
+      return now.toLocaleTimeString('es-PE', { hour12: false });
+    }
 
-    <footer  id="contacto">
-        <div class="contenedor-footer">
-            <div class="content-foo">
-                <h4></h4>
-                <p></p>
-            </div>
-            <div class="content-foo">
-                <h4></h4>
-                <p></p>
-            </div>
-        </div>
-        <h2 class="titulo-final">&copy; Pinteres | ANTERO</h2>
-    </footer>
+    function simulatePanicAlert() {
+      // Coordenadas simuladas (San Juan de Lurigancho aprox)
+      const lat = (-12.00 + (Math.random() * 0.05)).toFixed(4);
+      const lon = (-76.98 + (Math.random() * 0.04)).toFixed(4);
+      
+      logDiv.innerHTML = `[${getCurrentTimestamp()}] ⚡ BOTÓN DE PÁNICO ACTIVADO<br>
+      📍 GPS: ${lat}, ${lon} (SJL - cuadra 15)<br>
+      🎤 Audio ambiental grabando...<br>
+      📸 Cámara capturó imagen silenciosa.<br>
+      ✅ Alerta enviada a Central Halcón. Patrullero en camino.`;
+      
+      // Efecto visual
+      panicBtn.style.backgroundColor = '#ff3b2f';
+      setTimeout(() => {
+        panicBtn.style.backgroundColor = '#9e2a1f';
+      }, 300);
+    }
+
+    panicBtn.addEventListener('click', simulatePanicAlert);
+
+    // También se puede activar con la tecla "P" para simular emergencia (interactividad extra)
+    window.addEventListener('keydown', function(e) {
+      if (e.key === 'p' || e.key === 'P') {
+        e.preventDefault();
+        simulatePanicAlert();
+        // scroll hacia el simulador
+        document.getElementById('panicLog').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+
+    // Pequeña bienvenida en consola
+    console.log("VUELVE TRANQUILO · Simulador activo. Presiona 'P' en cualquier momento para activar el botón de pánico.");
+  </script>
 </body>
 </html>
